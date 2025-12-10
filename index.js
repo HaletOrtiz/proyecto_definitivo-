@@ -5,7 +5,7 @@ import signrouter from "./routes/sign.route.js";
 import teamRouter from "./routes/team.route.js";
 import matchRouter from "./routes/match.route.js";
 import playerRouter from "./routes/player.route.js";
-import extraTrainingRouter from "./routes/extraTraining.route.js";
+import extraTrainingRouter from "./routes/entrenamientoExtra.route.js";
 
 dotenv.config();
 

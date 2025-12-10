@@ -1,4 +1,4 @@
-import ExtraTraining from "../models/extraTraining.model.js";
+import ExtraTraining from "../models/entrenamientoExtra.model.js";
 
 // 1. CREAR (Para que usted llene la base de datos)
 export const createExtraTraining = async (req, res) => {

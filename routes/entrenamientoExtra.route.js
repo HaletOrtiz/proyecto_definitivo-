@@ -1,5 +1,5 @@
 import express from "express";
-import { createExtraTraining, getExtraTrainings } from "../controllers/extraTraining.controller.js";
+import { createExtraTraining, getExtraTrainings } from "../controllers/entrenamientoExtra.controller.js";
 
 const router = express.Router();
 
