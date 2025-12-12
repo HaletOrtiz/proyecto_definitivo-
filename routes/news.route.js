@@ -1,6 +1,6 @@
 import express from "express";
 import { createNews, getNews } from "../controllers/news.controller.js";
-import upload from "../middlewares/upload.middleware.js"; // Necesario para la foto
+//import upload from "../middlewares/upload.middleware.js"; // Necesario para la foto
 
 const router = express.Router();
 
@@ -9,6 +9,6 @@ router.get("/news", getNews);
 
 // Publicar noticia (Recibe una imagen en el campo 'image')
 // En el futuro, añada 'authMiddleware' antes de 'upload' para protegerlo
-router.post("/news", upload.single("image"), createNews);
+//router.post("/news", upload.single("image"), createNews);
 
-export default router;
+//export default router;

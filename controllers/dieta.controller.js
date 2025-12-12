@@ -1,4 +1,4 @@
-import Diet from "../models/diet.model.js";
+import Diet from "../models/dieta.model.js";
 
 // 1. CREAR NUEVA DIETA
 export const createDiet = async (req, res) => {

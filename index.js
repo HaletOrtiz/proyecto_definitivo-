@@ -6,8 +6,11 @@ import teamRouter from "./routes/team.route.js";
 import matchRouter from "./routes/match.route.js";
 import playerRouter from "./routes/player.route.js";
 import extraTrainingRouter from "./routes/entrenamientoExtra.route.js";
-import newsRouter from "./routes/news.route.js";
+//import newsRouter from "./routes/news.route.js";
 import carritoRouter from "./routes/carrito.route.js";
+import userRouter from "./routes/user.route.js";
+import dietaRouter from "./routes/dieta.route.js";
+
 
 dotenv.config();
 
@@ -33,8 +36,11 @@ app.use(teamRouter);   // Equipos (Puntos)
 app.use(matchRouter);  // Partidos (Calendario)
 app.use(playerRouter); // Jugadoras (Plantilla y Fotos)
 app.use(extraTrainingRouter); // Entrenamientos Extra
-app.use(newsRouter); // Noticias
+//app.use(newsRouter); // Noticias
 app.use(carritoRouter); // Carrito
+app.use(userRouter); // Usuarios
+app.use(dietaRouter); // Dieta
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

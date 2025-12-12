@@ -1,5 +1,5 @@
 import express from "express";
-import { createDiet, getDiets, getDietById } from "../controllers/diet.controller.js";
+import { createDiet, getDiets, getDietById } from "../controllers/dieta.controller.js";
 
 const router = express.Router();
 
