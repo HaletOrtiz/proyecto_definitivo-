@@ -43,3 +43,14 @@ export const createTeam = async (req, res) => {
         res.status(500).json({ message: "Error al crear equipo", error });
     }
 };
+
+
+export const getTeams = async (req, res) => {
+    try {
+        // Buscamos todos y los ordenamos: Puntos (descendente), GolesFavor (descendente)
+        const teams = await Team.find().sort({ points: -1, gamesWon: -1 });
+        res.status(200).json(teams);
+    } catch (error) {
+        res.status(500).json({ message: "Error al obtener clasificación", error });
+    }
+};

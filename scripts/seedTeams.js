@@ -1,0 +1,41 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+// Asegúrate de que la ruta a tu modelo es correcta
+import Team from '../models/team.model.js';
+
+dotenv.config();
+
+// Lista de equipos limpia (Todos a 0)
+const teams = [
+    { position: 1, name: 'Las Rozas', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 2, name: 'Rayo Majadahonda', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 3, name: 'UD Villalba', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/logo-udvillalba.png' }, // Este ya lo tienes 😉
+    { position: 4, name: 'Inter Majadahonda', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 5, name: 'Olympia', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 6, name: 'Villanueva', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 7, name: 'Nuevo Boadilla', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 8, name: 'AD Castilla', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 9, name: 'CDG', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' },
+    { position: 10, name: 'Colmenarejo', points: 0, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, shieldUrl: 'assets/escudos/generic.png' }
+];
+
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/mi_proyecto_backend";
+
+mongoose.connect(MONGO_URI)
+    .then(async () => {
+        console.log("🌱 Conectando a la Liga...");
+
+        // 1. Borrar lo anterior
+        await Team.deleteMany({});
+        console.log("🧹 Pizarra borrada.");
+
+        // 2. Insertar los nuevos equipos a 0
+        await Team.insertMany(teams);
+        console.log("✅ Equipos inscritos para la nueva temporada.");
+
+        process.exit();
+    })
+    .catch((err) => {
+        console.error("❌ Error:", err);
+        process.exit(1);
+    });

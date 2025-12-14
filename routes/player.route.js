@@ -1,25 +1,13 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import express from "express";
+import { createPlayer, getPlayers } from "../controllers/player.controller.js";
 
-dotenv.config();
+const router = express.Router();
 
-const authMiddleware = (req, res, next) => {
+// Ruta para ver jugadoras
+router.get("/players", getPlayers);
 
-    const token = req.headers.authorization;
+// Ruta para crear jugadoras (SIN SUBIDA DE ARCHIVOS)
+// Antes aquí había un "upload.fields(...)", ahora lo quitamos.
+router.post("/players", createPlayer);
 
-    if (!token) {
-        return res.status(401).json({ message: "¡Alto! Necesitas estar logueado (Falta Token)" });
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
-        req.user = decoded;
-        next();
-
-    } catch (error) {
-        return res.status(401).json({ message: "Carnet falso o caducado" });
-    }
-};
-
-export default authMiddleware;
+export default router;

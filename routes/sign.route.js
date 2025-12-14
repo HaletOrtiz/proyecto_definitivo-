@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     try {
         // Recibimos los datos del "paquete" (body)
-        const { email, password } = req.body;
+        const { email, password, nombre } = req.body;
 
         // Encriptamos la contraseña (nadie debe verla texto plano)
         const salt = await bcrypt.genSalt(10);
@@ -18,7 +18,8 @@ router.post('/register', async (req, res) => {
         // Creamos el usuario en memoria con el molde
         const user = new User({
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            nombre: nombre
         });
 
         // Guardamos en la Base de Datos
@@ -33,7 +34,7 @@ router.post('/register', async (req, res) => {
 // 2. RUTA DE LOGIN (Para entrar)
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, nombre } = req.body;
 
         // Buscamos si el email existe en la BD
         const user = await User.findOne({ email });
@@ -50,7 +51,7 @@ router.post('/login', async (req, res) => {
         // Si todo ok, le damos su Token (su carnet de socio)
         const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
 
-        res.json({ token: token });
+        res.json({ token: token, nombre: user.nombre });
     } catch (error) {
         res.status(400).json({ message: "Error en el login" });
     }

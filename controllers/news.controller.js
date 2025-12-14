@@ -15,6 +15,8 @@ export const createNews = async (req, res) => {
         const newNews = new News({
             title,
             description,
+            content,
+            category,
             image: imagePath
         });
 
