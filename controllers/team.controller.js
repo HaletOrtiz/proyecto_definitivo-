@@ -1,42 +1,29 @@
-import Team from "../models/team.model.js"; // Importamos el modelo (la hoja de cálculo)
+import Team from "../models/team.model.js";
 
+// ESTA ES LA FUNCIÓN CORREGIDA PARA EDITAR
 export const updateTeamStats = async (req, res) => {
     try {
-        const { teamId, result } = req.body;
+        // 1. Separamos el ID del resto de los datos
+        const { _id, ...datosNuevos } = req.body;
 
-        const team = await Team.findById(teamId);
+        // 2. Buscamos por ID y actualizamos
+        // { new: true } nos devuelve el dato ya cambiado para confirmar
+        const team = await Team.findByIdAndUpdate(_id, datosNuevos, { new: true });
+
         if (!team) return res.status(404).json({ message: "Equipo no encontrado" });
 
-
-        team.gamesPlayed += 1;
-
-
-        if (result === "ganado") {
-            team.gamesWon += 1;
-            team.points += 3;
-        } else if (result === "empatado") {
-            team.gamesDrawn += 1;
-            team.points += 1;
-        } else if (result === "perdido") {
-            team.gamesLost += 1;
-
-        }
-
-
-        await team.save();
-
-        res.status(200).json({ message: "Clasificación actualizada", team });
+        res.status(200).json({ message: "Datos actualizados correctamente", team });
 
     } catch (error) {
         res.status(500).json({ message: "Error al actualizar", error });
     }
 };
 
-
+// --- Mantenemos las otras funciones que ya tenías ---
 export const createTeam = async (req, res) => {
     try {
         const { name } = req.body;
-        const newTeam = new Team({ name }); // Crea el equipo con 0 puntos por defecto
+        const newTeam = new Team({ name });
         await newTeam.save();
         res.status(201).json(newTeam);
     } catch (error) {
@@ -44,11 +31,9 @@ export const createTeam = async (req, res) => {
     }
 };
 
-
 export const getTeams = async (req, res) => {
     try {
-        // Buscamos todos y los ordenamos: Puntos (descendente), GolesFavor (descendente)
-        const teams = await Team.find().sort({ points: -1, gamesWon: -1 });
+        const teams = await Team.find().sort({ points: -1, gf: -1 }); // Ordenado por Puntos y Goles a favor
         res.status(200).json(teams);
     } catch (error) {
         res.status(500).json({ message: "Error al obtener clasificación", error });
